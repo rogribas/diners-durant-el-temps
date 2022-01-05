@@ -1,0 +1,110 @@
+
+
+body {
+    font-family: sans-serif;
+}
+
+
+.elements-container {
+    width: 560px;
+}
+.chart-container {
+    width: 100%;
+}
+
+#myChart {
+    width: 100%;
+}
+
+.mov-container {
+    padding: 5px;
+    width: 170px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.creator, .element {
+    height: 195px;
+    padding: 7px;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.5);
+    border: 1px solid #ddd;
+    font-size: 11px;
+    position: relative;
+}
+
+.element {
+    height: 190px;
+}
+
+.movements .element {
+    margin-bottom: 10px;
+}
+
+.field-label {
+    display: inline-block;
+}
+
+.field-container {
+    padding: 2px 0;
+    display: flex;
+    align-items: center;
+}
+
+.mov-title {
+    font-size: 14px;
+    font-weight: bold;
+    padding-bottom: 8px;
+}
+
+.input-number, .input-text, select, .input-color {
+    text-align: right;
+    width: 90px;
+    /* float: right; */
+    margin-left: auto;
+    order: 2;
+    font-size: 11px;
+}
+
+.input-color {
+    font-size: 8px;
+}
+
+.field-container-start-end > select {
+    width: 50px;
+    float: none;
+}
+.field-container-start-end > input {
+    width: 40px;
+    float: none;
+}
+
+.btn-create-container {
+    margin-top: 15px;
+    width: 90%;
+    position: absolute;
+    bottom: 8px;
+}
+
+.btn-up {
+    float: right;
+}
+
+button {
+    font-size: 11px;
+}
+
+form {
+    margin: 0;
+}
+
+
+.earning-container > div {
+    background: rgb(232, 251, 204);
+}
+.spending-container > div {
+    background: rgb(251, 196, 196);
+}
+.mortgage-container > div {
+    background: rgb(210, 210, 210);
+}

@@ -137,13 +137,11 @@ const config = {
                 grid: {
                     drawBorder: false,
                     color: function(context) {
-                        console.log(context.tick.value);
                         if (context.tick.value > 0) {
                             return "#aea";
                         } else if (context.tick.value < 0) {
                             return "#eaa";
                         }
-            
                         return '#777';
                     },
                 },
@@ -350,10 +348,13 @@ function updateParamsURL() {
 
 function getUrlParams() {
     var vars = [], hash;
+    if (window.location.href.indexOf('?') == -1) return [];
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
     for (var i = 0; i < hashes.length; i++) {
         hash = hashes[i].split('=');                        
-        vars[hash[0]] = hash[1];
+        if (hash[1]) {
+            vars[hash[0]] = hash[1];
+        }
     }
     return vars;
 }

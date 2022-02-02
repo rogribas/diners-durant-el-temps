@@ -6,10 +6,11 @@ class Movement {
 }
 
 class Earning extends Movement {
-    constructor(id, color, init, rate, incr, ifreq, start, end) {
+    constructor(id, color, init, rate, rateApy, incr, ifreq, start, end) {
         super(id, color);
         this.init = init;
         this.rate = rate;
+        this.rateApy = rateApy;
         this.incr = incr;
         this.ifreq = ifreq;
         this.start = start;
@@ -18,10 +19,11 @@ class Earning extends Movement {
 }
 
 class Spending extends Movement {
-    constructor(id, color, init, rate, incr, ifreq, start, end) {
+    constructor(id, color, init, rate, rateApy, incr, ifreq, start, end) {
         super(id, color);
         this.init = init;
         this.rate = rate;
+        this.rateApy = rateApy;
         this.incr = incr;
         this.ifreq = ifreq;
         this.start = start;
@@ -148,7 +150,7 @@ const config = {
             }
         }
     }
-    
+
 };
 
 const myChart = new Chart(
@@ -225,10 +227,13 @@ function addObj2Chart(obj) {
                 data.push(lastYear);
                 continue;
             }
-            
+
             var point = lastYear;
             if (obj.rate) {
-                point += lastYear * parseFloat(obj.rate); 
+                point += init * parseFloat(obj.rate);
+            }
+            if (obj.rateApy) {
+                point += lastYear * parseFloat(obj.rateApy);
             }
             if (obj.incr) {
                 point += parseFloat(obj.incr) * parseFloat(obj.ifreq);
@@ -253,10 +258,13 @@ function addObj2Chart(obj) {
                 data.push(lastYear);
                 continue;
             }
-            
+
             var point = lastYear;
             if (obj.rate) {
-                point += lastYear * parseFloat(obj.rate); 
+                point += init * parseFloat(obj.rate);
+            }
+            if (obj.rateApy) {
+                point += lastYear * parseFloat(obj.rateApy);
             }
             if (obj.incr) {
                 point -= parseFloat(obj.incr) * parseFloat(obj.ifreq);
@@ -267,7 +275,7 @@ function addObj2Chart(obj) {
     if (obj instanceof Mortgage) {
         init = -init;
         for (var i = 0; i < 48; i++) {
-            
+
             if (parseInt(obj.start) > 2022 + i - 1) {
                 if (parseInt(obj.start) == 2022 + i) {
                     data.push(init);
@@ -285,18 +293,18 @@ function addObj2Chart(obj) {
                 data.push(lastYear);
                 continue;
             }
-            
+
             var point = lastYear;
             var tax = 0;
             if (obj.tax) tax = parseFloat(obj.tax);
             var rate = 0;
             if (obj.rate) rate = parseFloat(obj.rate);
-            
+
             var toAdd = (
                 (parseFloat(obj.total) * (1 + tax)
                              + init) * (1 + rate)
                 ) / years;
-            
+
             point = point - toAdd;
             data.push(point);
         }
@@ -351,7 +359,7 @@ function getUrlParams() {
     if (window.location.href.indexOf('?') == -1) return [];
     var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
     for (var i = 0; i < hashes.length; i++) {
-        hash = hashes[i].split('=');                        
+        hash = hashes[i].split('=');
         if (hash[1]) {
             vars[hash[0]] = hash[1];
         }
@@ -391,6 +399,7 @@ function loadFromURL() {
                     dictParams[tp][id]["color"],
                     parseFloat(dictParams[tp][id]["init"]) || 0,
                     parseFloat(dictParams[tp][id]["rate"]) || 0,
+                    parseFloat(dictParams[tp][id]["rateApy"]) || 0,
                     parseFloat(dictParams[tp][id]["incr"]) || 0,
                     parseFloat(dictParams[tp][id]["ifreq"]) || 0,
                     parseInt(dictParams[tp][id]["start"]),
@@ -405,6 +414,7 @@ function loadFromURL() {
                     dictParams[tp][id]["color"],
                     parseFloat(dictParams[tp][id]["init"]) || 0,
                     parseFloat(dictParams[tp][id]["rate"]) || 0,
+                    parseFloat(dictParams[tp][id]["rateApy"]) || 0,
                     parseFloat(dictParams[tp][id]["incr"]) || 0,
                     parseFloat(dictParams[tp][id]["ifreq"]) || 0,
                     parseInt(dictParams[tp][id]["start"]),
@@ -443,7 +453,7 @@ function loadFromURL() {
             new jscolor(newjscolor);
             newjscolor.jscolor.fromString(obj.color);
             addObj2Chart(obj);
-        }   
+        }
     }
 }
 
@@ -468,14 +478,16 @@ $(document).ready(function() {
         usedIds.add(iDict['id']);
         if (t == "earning") {
             var iObj = new Earning(iDict['id'], iDict['color'],
-                iDict['init'], iDict['rate'], iDict['incr'],
-                iDict['ifreq'], iDict['start'], iDict['end'],
+                iDict['init'], iDict['rate'], iDict['rateApy'],
+                iDict['incr'], iDict['ifreq'],
+                iDict['start'], iDict['end'],
             );
         }
         if (t == "spending") {
             var iObj = new Spending(iDict['id'], iDict['color'],
-                iDict['init'], iDict['rate'], iDict['incr'],
-                iDict['ifreq'], iDict['start'], iDict['end'],
+                iDict['init'], iDict['rate'], iDict['rateApy'],
+                iDict['incr'], iDict['ifreq'],
+                iDict['start'], iDict['end'],
             );
         }
         if (t == "mortgage") {
@@ -527,14 +539,16 @@ $(document).ready(function() {
         $('#form-' + objId + ' :input[name="id"]').prop("disabled", true);
         if (t == "earning") {
             var iObj = new Earning(iDict['id'], iDict['color'],
-                iDict['init'], iDict['rate'], iDict['incr'],
-                iDict['ifreq'], iDict['start'], iDict['end'],
+                iDict['init'], iDict['rate'], iDict['rateApy'],
+                iDict['incr'], iDict['ifreq'],
+                iDict['start'], iDict['end'],
             );
         }
         if (t == "spending") {
             var iObj = new Spending(iDict['id'], iDict['color'],
-                iDict['init'], iDict['rate'], iDict['incr'],
-                iDict['ifreq'], iDict['start'], iDict['end'],
+                iDict['init'], iDict['rate'], iDict['rateApy'],
+                iDict['incr'], iDict['ifreq'],
+                iDict['start'], iDict['end'],
             );
         }
         if (t == "mortgage") {

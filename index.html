@@ -20,7 +20,7 @@
                             <div>
                                 <div class="field-container">
                                     <div class="field-label">ID</div>
-                                    <input name="id" type="text" class="input-text" />
+                                    <input name="id" type="text" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" class="input-text" />
                                 </div>
                                 <div class="field-container">
                                     <div class="field-label">Color</div>
@@ -34,8 +34,12 @@
                                     <input name="init" type="number" class="input-number" />
                                 </div>
                                 <div class="field-container">
-                                    <div class="field-label">Rate</div>
+                                    <div class="field-label">Rate APR</div>
                                     <input name="rate" type="number" class="input-number" />
+                                </div>
+                                <div class="field-container">
+                                    <div class="field-label">Rate APY</div>
+                                    <input name="rateApy" type="number" class="input-number" />
                                 </div>
                                 <div class="field-container">
                                     <div class="field-label">Increment</div>
@@ -81,7 +85,7 @@
                             <div>
                                 <div class="field-container">
                                     <div class="field-label">ID</div>
-                                    <input name="id" type="text" class="input-text" />
+                                    <input name="id" type="text" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" class="input-text" />
                                 </div>
                                 <div class="field-container">
                                     <div class="field-label">Color</div>
@@ -95,8 +99,12 @@
                                     <input name="init" type="number" class="input-number" />
                                 </div>
                                 <div class="field-container">
-                                    <div class="field-label">Rate</div>
+                                    <div class="field-label">Rate APR</div>
                                     <input name="rate" type="number" class="input-number" />
+                                </div>
+                                <div class="field-container">
+                                    <div class="field-label">Rate APY</div>
+                                    <input name="rateApy" type="number" class="input-number" />
                                 </div>
                                 <div class="field-container">
                                     <div class="field-label">Increment</div>
@@ -142,7 +150,7 @@
                             <div>
                                 <div class="field-container">
                                     <div class="field-label">ID</div>
-                                    <input name="id" type="text" class="input-text" />
+                                    <input name="id" type="text" onkeydown="if(['Space'].includes(arguments[0].code)){return false;}" class="input-text" />
                                 </div>
                                 <div class="field-container">
                                     <div class="field-label">Color</div>
